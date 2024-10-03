@@ -172,5 +172,37 @@ namespace Graph
             }
 
         }
+
+        public Dictionary<string, Dictionary<string, int>> AllVertexEdges(BaseGraph G2)
+        {
+            Dictionary<string, Dictionary<string, int>> notincludedvertexedges = new();
+            foreach (var vertex in _adjacensyList)
+            {
+                if (G2.AdjacensyList.ContainsKey(vertex.Key))
+                {
+                    foreach (var adjvertex in vertex.Value)
+                    {
+                        if (!G2.AdjacensyList[vertex.Key].ContainsKey(adjvertex.Key))
+                        {
+                            if (!notincludedvertexedges.ContainsKey(vertex.Key))
+                            {
+                                notincludedvertexedges.Add(vertex.Key, new Dictionary<string, int>());
+                            }
+                            notincludedvertexedges[vertex.Key].Add(adjvertex.Key, adjvertex.Value);
+                        }
+                    }
+                }
+                else
+                {
+                    if (!notincludedvertexedges.ContainsKey(vertex.Key))
+                    {
+                        notincludedvertexedges.Add(vertex.Key, new Dictionary<string, int>());
+                    }
+                }
+            }
+            return notincludedvertexedges;
+        }
+
+
     }
 }

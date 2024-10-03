@@ -17,6 +17,7 @@
                               "          removeEdge\n" +
                               "          task2\n" +
                               "          task3\n" +
+                              "          task4\n" +
                               "\nGraph>");
                 string command = Console.ReadLine();
 
@@ -100,6 +101,79 @@
                     Console.Write("vertex: ");
                     string vertex = Console.ReadLine();
                     baseGraph.AllNotAdjacencyVertex(vertex);
+                }
+                else if (command == "task4")
+                {
+                    Dictionary<string, Dictionary<string, int>> adjList = baseGraph.AdjacensyList;
+
+                    foreach (var vertex in adjList)
+                    {
+                        Console.Write($"{vertex.Key} => ");
+
+                        if (baseGraph.Measured)
+                        {
+                            foreach (var adjvertex in vertex.Value)
+                                Console.Write($"|{adjvertex.Key} ({adjvertex.Value})| ");
+                        }
+                        else
+                        {
+                            foreach (var adjvertex in vertex.Value)
+                                Console.Write($"|{adjvertex.Key}| ");
+                        }
+
+                        Console.WriteLine();
+                    }
+                    Console.WriteLine();
+
+                    Dictionary<string, Dictionary<string, int>> adjList2 = baseGraph2.AdjacensyList;
+
+                    foreach (var vertex in adjList2)
+                    {
+                        Console.Write($"{vertex.Key} => ");
+
+                        if (baseGraph2.Measured)
+                        {
+                            foreach (var adjvertex in vertex.Value)
+                                Console.Write($"|{adjvertex.Key} ({adjvertex.Value})| ");
+                        }
+                        else
+                        {
+                            foreach (var adjvertex in vertex.Value)
+                                Console.Write($"|{adjvertex.Key}| ");
+                        }
+
+                        Console.WriteLine();
+                    }
+                    Console.WriteLine();
+
+                    Dictionary<string, Dictionary<string, int>> notincludedvertexedges = baseGraph.AllVertexEdges(baseGraph2);
+                    if (notincludedvertexedges.Count == 0)
+                    {
+                        Console.Write("Все вершины и все рёбра графа G1 содержатся в графе G2.");
+                    }
+                    else
+                    {
+                        Console.Write("Отсутствуют:\n");
+
+                        foreach (var vertex in notincludedvertexedges)
+                        {
+                            Console.Write($"{vertex.Key} => ");
+
+                            if (baseGraph.Measured)
+                            {
+                                foreach (var adjvertex in vertex.Value)
+                                    Console.Write($"|{adjvertex.Key} ({adjvertex.Value})| ");
+                            }
+                            else
+                            {
+                                foreach (var adjvertex in vertex.Value)
+                                    Console.Write($"|{adjvertex.Key}| ");
+                            }
+
+                            Console.WriteLine();
+                        }
+                        Console.WriteLine();
+                    }
                 }
             }
         }
